@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace HelloWorld
+namespace Attributes
 {
     class TestAttribute : Attribute { }
 
@@ -15,7 +15,9 @@ namespace HelloWorld
         static void Main(string[] args)
         {
             foreach(Type t in Assembly.GetExecutingAssembly().GetTypes())
-                Console.WriteLine(t.Name);
+                foreach(Attribute a in t.GetCustomAttributes())
+                    if(a is TestAttribute)
+                        Console.WriteLine(t.Name);
         }
     }
 }
